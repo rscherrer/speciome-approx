@@ -1,0 +1,314 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10845,        306]
+NotebookOptionsPosition[      8898,        265]
+NotebookOutlinePosition[      9286,        281]
+CellTagsIndexPosition[      9243,        278]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["The model", "Subsection",
+ CellChangeTimes->{{3.832849464920828*^9, 
+  3.8328494663966093`*^9}},ExpressionUUID->"42b3f71b-ab7d-4b68-a255-\
+6bc5853a090e"],
+
+Cell["The model is as follows:", "Text",
+ CellChangeTimes->{{3.83284959856068*^9, 
+  3.832849608573134*^9}},ExpressionUUID->"7840c8a7-4c43-4ea8-8793-\
+de55aaabc4ae"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Geometric", " ", "growth", " ", "rate"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"r", "[", 
+     RowBox[{"y_", ",", "x_"}], "]"}], ":=", 
+    RowBox[{"1", "-", "d", "+", 
+     RowBox[{"W", "[", 
+      RowBox[{"y", ",", "x"}], "]"}]}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Reproductive", " ", "success"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"W", "[", 
+     RowBox[{"y_", ",", "x_"}], "]"}], ":=", 
+    RowBox[{
+     RowBox[{"w", "[", "y", "]"}], 
+     RowBox[{"R", "[", "x", "]"}]}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Equilibrium", " ", "resource", " ", "concentration"}], " ", 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"R", "[", "x_", "]"}], ":=", 
+    FractionBox[
+     RowBox[{"\[Iota]", " "}], 
+     RowBox[{"\[Omicron]", "+", 
+      RowBox[{"N", " ", 
+       RowBox[{"w", "[", "x", "]"}]}]}]]}], " ", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Attack", " ", "rate"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"w", "[", "x_", "]"}], ":=", 
+    RowBox[{"w0", "*", 
+     RowBox[{"Exp", "[", 
+      RowBox[{
+       RowBox[{"-", "s"}], 
+       FractionBox[
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"x", "+", "\[Psi]"}], ")"}], "2"], 
+        SuperscriptBox["\[Psi]", "2"]]}], "]"}]}]}]}]}]], "Input",
+ CellChangeTimes->{{3.8328494941463947`*^9, 3.832849570657927*^9}, {
+  3.832849651262347*^9, 3.8328496519355783`*^9}, {3.8328497293041*^9, 
+  3.8328497440368423`*^9}},
+ CellLabel->"In[63]:=",ExpressionUUID->"2ba479c7-290b-4d26-8c5f-ac99bcb39b0a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Invasion fitness", "Subsection",
+ CellChangeTimes->{{3.8328495838911257`*^9, 3.832849586369096*^9}, {
+  3.8328502248918324`*^9, 3.832850226518076*^9}, {3.832850534013146*^9, 
+  3.832850535922002*^9}},ExpressionUUID->"a4fa2b1d-5d3c-4984-af87-\
+70ba7065de29"],
+
+Cell["\<\
+The invasion fitness is the geometric growth rate of the population here. \
+Check first that the invasion fitness of the resident is indeed one:\
+\>", "Text",
+ CellChangeTimes->{{3.832850230865341*^9, 
+  3.832850318690382*^9}},ExpressionUUID->"3d9c9fd3-19b9-4169-8f4c-\
+c3a803cd827b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Example", " ", "parameter", " ", "set"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"pars", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\[Iota]", "\[Rule]", "400"}], ",", 
+       RowBox[{"\[Omicron]", "\[Rule]", "100"}], ",", 
+       RowBox[{"h", "\[Rule]", "1"}], ",", 
+       RowBox[{"s", "\[Rule]", "1"}], ",", 
+       RowBox[{"\[Psi]", "\[Rule]", "1"}], ",", 
+       RowBox[{"d", "\[Rule]", "0.2"}], ",", 
+       RowBox[{"m", "\[Rule]", "0.1"}], ",", 
+       RowBox[{"a", "\[Rule]", "1"}], ",", 
+       RowBox[{"w0", "\[Rule]", "1"}]}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Demographic", " ", "equilibrium"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"neq", "=", 
+     RowBox[{"{", 
+      RowBox[{"N", "\[Rule]", 
+       FractionBox[
+        RowBox[{
+         RowBox[{
+          RowBox[{"w", "[", "x", "]"}], "\[Iota]"}], "-", 
+         RowBox[{"d", " ", "\[Omicron]"}]}], 
+        RowBox[{"d", " ", 
+         RowBox[{"w", "[", "x", "]"}]}]]}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "Compute", " ", "the", " ", "invasion", " ", "fitness", " ", "of", " ", 
+     "the", " ", "resident"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"r", "[", 
+       RowBox[{"x", ",", "x"}], "]"}], "/.", "neq"}], "/.", "pars"}], "/.", 
+    RowBox[{"x", "\[Rule]", "1"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.832850321366943*^9, 
+  3.8328505245755*^9}},ExpressionUUID->"9e0c4c65-128f-41b0-aeb4-7a81182cba78"],
+
+Cell[BoxData["1.`"], "Output",
+ CellChangeTimes->{{3.832850324986068*^9, 3.8328503533475647`*^9}, {
+  3.83285038381756*^9, 3.832850407316798*^9}, {3.8328504853757973`*^9, 
+  3.832850510727825*^9}},
+ CellLabel->"Out[86]=",ExpressionUUID->"984bd4dd-ff8c-4d09-b84c-641a02164ac1"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Selection gradient", "Subsection",
+ CellChangeTimes->{{3.8328505405265007`*^9, 
+  3.832850542238302*^9}},ExpressionUUID->"12cf11c8-8461-4dce-af98-\
+1606ea9f443c"],
+
+Cell["\<\
+The selection gradient is the derivative of the invasion fitness with respect \
+to the mutant strategy. We found the following expression for it:\
+\>", "Text",
+ CellChangeTimes->{
+  3.832850304296485*^9},ExpressionUUID->"4cfcf817-c280-4348-8f13-\
+3dee22ca566b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Selection", " ", "gradient"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"G", "=", 
+    RowBox[{
+     RowBox[{"-", "2"}], "s", " ", "w0", " ", 
+     RowBox[{"(", 
+      RowBox[{"x", "+", "\[Psi]"}], ")"}], "w", " ", "R"}]}], 
+   ";"}]}]], "Input",
+ CellChangeTimes->{{3.832849702097878*^9, 3.832849826502554*^9}, {
+  3.832849857840425*^9, 3.8328498581400127`*^9}, {3.8328499006175137`*^9, 
+  3.832849926499605*^9}, {3.832850042050391*^9, 3.8328500473896313`*^9}, {
+  3.83285009361339*^9, 3.8328501006759157`*^9}, {3.832850204278152*^9, 
+  3.832850209997444*^9}, {3.8328502546437817`*^9, 3.832850256531597*^9}, {
+  3.832850546952527*^9, 3.83285054737709*^9}, {3.832850629723812*^9, 
+  3.832850629974703*^9}},
+ CellLabel->"In[92]:=",ExpressionUUID->"3d3cea76-b743-498c-b073-a94700f4f8e9"],
+
+Cell["\<\
+We now check that this expression is equal to the derivative of the invasion \
+fitness with respect to the mutant strategy, evaluated at the resident \
+strategy.\
+\>", "Text",
+ CellChangeTimes->{{3.832850692222549*^9, 
+  3.832850730784418*^9}},ExpressionUUID->"316e7639-49bb-4beb-9d01-\
+abcba7b38632"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Compute", " ", "the", " ", "selection", " ", "gradient", " ", "from", " ",
+     "its", " ", "formula"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"G", "/.", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"w", "\[Rule]", 
+         RowBox[{"w", "[", "x", "]"}]}], ",", 
+        RowBox[{"R", "\[Rule]", 
+         RowBox[{"R", "[", "x", "]"}]}]}], "}"}]}], "/.", "neq"}], "/.", 
+    "pars"}], "/.", 
+   RowBox[{"{", 
+    RowBox[{"x", "\[Rule]", "0.34"}], "}"}]}]}]], "Input",
+ CellChangeTimes->{{3.8328505729458733`*^9, 3.832850640568272*^9}, {
+  3.832850736981991*^9, 
+  3.832850757669742*^9}},ExpressionUUID->"7f055125-25b5-4c7c-bb94-\
+ddf5f6b0281f"],
+
+Cell[BoxData[
+ RowBox[{"-", "0.536`"}]], "Output",
+ CellChangeTimes->{3.832850687945595*^9},
+ CellLabel->"Out[96]=",ExpressionUUID->"890d6189-c143-4d86-b121-76db3a0ba112"]
+}, Open  ]],
+
+Cell["Now the derivative of the invasion fitness:", "Text",
+ CellChangeTimes->{{3.83285076730262*^9, 
+  3.832850781026588*^9}},ExpressionUUID->"2196ccff-7425-4a67-9b29-\
+b84ce0425715"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"r", "[", 
+        RowBox[{"y", ",", "x"}], "]"}], ",", "y"}], "]"}], "/.", 
+     RowBox[{"y", "\[Rule]", "x"}]}], "/.", "neq"}], "/.", "pars"}], "/.", 
+  RowBox[{"{", 
+   RowBox[{"x", "\[Rule]", "0.34"}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.832850659048966*^9, 3.8328506851267776`*^9}},
+ CellLabel->"In[95]:=",ExpressionUUID->"51abaf55-d4a3-4931-a547-14eb04df71ea"],
+
+Cell[BoxData[
+ RowBox[{"-", "0.536`"}]], "Output",
+ CellChangeTimes->{
+  3.8328505746641073`*^9, {3.832850607786072*^9, 3.83285068539892*^9}},
+ CellLabel->"Out[95]=",ExpressionUUID->"f78b2983-b9d8-4cf7-8f13-11a19538d808"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{906, 552},
+WindowMargins->{{0, Automatic}, {0, Automatic}},
+FrontEndVersion->"12.1 for Linux x86 (64-bit) (June 19, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"97306d9b-79f1-4a48-8b1e-528773636412"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 159, 3, 54, "Subsection",ExpressionUUID->"42b3f71b-ab7d-4b68-a255-6bc5853a090e"],
+Cell[742, 27, 165, 3, 35, "Text",ExpressionUUID->"7840c8a7-4c43-4ea8-8793-de55aaabc4ae"],
+Cell[910, 32, 1784, 50, 273, "Input",ExpressionUUID->"2ba479c7-290b-4d26-8c5f-ac99bcb39b0a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2731, 87, 263, 4, 54, "Subsection",ExpressionUUID->"a4fa2b1d-5d3c-4984-af87-70ba7065de29"],
+Cell[2997, 93, 294, 6, 58, "Text",ExpressionUUID->"3d9c9fd3-19b9-4169-8f4c-c3a803cd827b"],
+Cell[CellGroupData[{
+Cell[3316, 103, 1713, 46, 194, "Input",ExpressionUUID->"9e0c4c65-128f-41b0-aeb4-7a81182cba78"],
+Cell[5032, 151, 276, 4, 33, "Output",ExpressionUUID->"984bd4dd-ff8c-4d09-b84c-641a02164ac1"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5357, 161, 168, 3, 54, "Subsection",ExpressionUUID->"12cf11c8-8461-4dce-af98-1606ea9f443c"],
+Cell[5528, 166, 271, 6, 58, "Text",ExpressionUUID->"4cfcf817-c280-4348-8f13-3dee22ca566b"],
+Cell[5802, 174, 861, 18, 51, "Input",ExpressionUUID->"3d3cea76-b743-498c-b073-a94700f4f8e9"],
+Cell[6666, 194, 311, 7, 58, "Text",ExpressionUUID->"316e7639-49bb-4beb-9d01-abcba7b38632"],
+Cell[CellGroupData[{
+Cell[7002, 205, 761, 22, 51, "Input",ExpressionUUID->"7f055125-25b5-4c7c-bb94-ddf5f6b0281f"],
+Cell[7766, 229, 171, 3, 33, "Output",ExpressionUUID->"890d6189-c143-4d86-b121-76db3a0ba112"]
+}, Open  ]],
+Cell[7952, 235, 184, 3, 35, "Text",ExpressionUUID->"2196ccff-7425-4a67-9b29-b84ce0425715"],
+Cell[CellGroupData[{
+Cell[8161, 242, 485, 13, 29, "Input",ExpressionUUID->"51abaf55-d4a3-4931-a547-14eb04df71ea"],
+Cell[8649, 257, 221, 4, 33, "Output",ExpressionUUID->"f78b2983-b9d8-4cf7-8f13-11a19538d808"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
